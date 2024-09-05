@@ -3,10 +3,10 @@ import string
 
 import ollama, re
 
-with open("/paper.txt", "r") as p:
+with open("paper.txt", "r") as p:
     text = p.read()
 
-with open("/paper_summary.txt", "r") as z:
+with open("paper_summary.txt", "r") as z:
     summary = z.read()
     #split into sections
     title = summary.split("#")[1]
