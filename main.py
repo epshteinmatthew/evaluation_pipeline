@@ -34,7 +34,7 @@ for i in summarysplit:
                                                                                   "GIVEN IN THE TEXT)] : [score]. "
                                                                                   "part title should be enclosed in "
                                                                                   "double quotes!!! do not include "
-                                                                                  "any additonal commentary!!! make "
+                                                                                  "any additional commentary!!! make "
                                                                                   "sure that you have overview, "
                                                                                   "background and significance, "
                                                                                   "methods, results, and discussion "
@@ -82,7 +82,7 @@ def eval(abstract_score, background_score, methods_score, results_score, discuss
     for item in maxes:
         if item not in text:
             print(item)
-            hallucinated += 5
+            hallucinated += summary.count(item)
 
     score = (abstract_score*1.25 + background_score + methods_score*1.5 + results_score*2 + discussion_score*2 - (
                 hallucinated / 5)) * (10/77.5)
