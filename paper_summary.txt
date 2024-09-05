@@ -1,0 +1,83 @@
+# Title:
+Mathematical model of the morphogenesis checkpoint in budding yeast
+
+# Authors:
+Andrea Ciliberto, Department of Biology, Virginia Tech, Blacksburg, VA 24061
+Bela Novak, Molecular Network Dynamics Research Group of Hungarian Academy of Sciences and Department of Agricultural Chemical Technology, Budapest University of Technology and Economics, H-1521 Budapest, Hungary
+John J. Tyson, Department of Biology, Virginia Tech, Blacksburg, VA 24061
+
+# Overview:
+This paper proposes a comprehensive molecular network model for the morphogenesis checkpoint in budding yeast, building on prior research by Lew (2000). The main focus is on Swe99 kinase, which plays a pivotal role in delaying cell cycle progression in response to conditions that hinder bud formation. The model is translated into a set of differential equations to simulate the dynamics of Swe99 regulation and its interaction with cyclin-dependent kinase activity.
+The primary objective of the paper is to elucidate how this molecular network governs various cellular responses under both checkpoint-free and checkpoint-induced conditions. Key phenomena addressed include the G2 cell cycle delay, adaptation mechanisms, and potential outcomes such as cell death. The model not only aims to explain observed cellular behaviors but also proposes new insights and hypotheses regarding the regulatory mechanisms involved.
+The simulations conducted based on the differential equations successfully replicate the phenotypes of multiple checkpoint mutants, validating the proposed Swe99 network. Notably, the model suggests an additional role for Hsl1 kinase in Swe99 regulation, indicating its indirect involvement in inhibiting Swe99 activity.
+Overall, the paper provides a unified framework that integrates molecular details with cellular behavior, offering a basis for further experimental investigations to deepen our understanding of the morphogenesis checkpoint and its broader implications in cell cycle regulation.
+
+# Background and Significance:
+The background knowledge in the field of cell cycle regulation, particularly in budding yeast, highlights the critical role of cyclin-dependent kinases (Cdks) and their regulatory mechanisms in orchestrating cell division. Research has extensively characterized the sequential activation of Cdks by cyclins throughout the cell cycle phases, from G1 to mitosis. Notably, the morphogenesis checkpoint in budding yeast, elucidated by Lew and colleagues, diverges from traditional checkpoints like the G2-M checkpoint by halting cell cycle progression in response to impaired bud formation rather than DNA damage or replication issues (Lew, 2000; Sia et al., 1996). This regulatory pathway prevents the formation of dinucleated cells under stress conditions, thereby maintaining cellular viability.
+However, a significant research gap remains in understanding the detailed molecular network underpinning the morphogenesis checkpoint. While Lew's work has outlined key components involved, the precise dynamics and interactions within this regulatory system have yet to be fully elucidated. Therefore, this paper aims to address the following research question: How can we construct a comprehensive molecular network model of the morphogenesis checkpoint in budding yeast, and what insights can this model provide into the temporal dynamics and regulatory mechanisms governing cell cycle progression, adaptation, and potential outcomes such as cell death under checkpoint-induced conditions? By translating existing knowledge into a set of differential equations, this study seeks to offer a unified framework that explains diverse features of the morphogenesis checkpoint observed experimentally (Lew, 2000; Sia et al., 1996).
+
+# Methods:
+In this study, simulations were conducted using XPP software, developed by Bard Ermentrout and accessible via his FTP site. The software employed the CVODE integration method with default settings, except for specific tolerances set at relative tolerance × absolute tolerance ≤ 3 × 10^-16. The model's differential equations, detailed in Table S1, were solved numerically using these parameters.
+To explore the model's sensitivity to kinetic constants within the Swe99 box, two parameters were chosen simultaneously for variation. Each parameter combination was tested against experimental data detailed in Table I. A simulation was considered successful if the predicted results (Rsim) were within 20% of the corresponding experimental observations (Rexp) for all characteristics of a genotype.
+The parameter search aimed to replicate data across 14 different genotypes, comprising both wild type and 13 mutant variations. Success was defined as fitting all 14 genotypes within the specified tolerance range.
+Supplementary material, including the experimental background, bifurcation analysis, and detailed model equations (Table S1), initial conditions, and parameter values (Table S2), was provided online. These resources, along with the model's .ode file and appropriate .set files for each figure, were accessible for further reference at http://www.jcb.org/cgi/content/full/jcb.200306139/DC1.
+
+# Results:
+Morphogenesis Checkpoint Mechanism:
+Swe99 Regulation: Swe99 kinase activity, regulated by phosphorylation and posttranslational modifications (Swe99, Swe99M, PSwe99, PSwe99M), plays a critical role in regulating the entry into mitosis. Swe99 inhibits Cdc28–Clb2, thereby delaying mitosis.
+Regulation by Cdc28–Clb2: Cdc28–Clb2 phosphorylates Swe99, reducing its activity and promoting its degradation, thus overcoming the checkpoint and allowing progression into mitosis.
+Feedback Loops: Negative feedback loops involving Cdc28–Clb2, Swe99, and other regulatory proteins are crucial for the proper functioning of the checkpoint.
+Cell Cycle Engine (Tyson-Novak Model):
+The model integrates a simplified version of the budding yeast cell cycle (Cln, Clb proteins).
+Transcriptional regulation by factors like SBF (regulating Cln1-2 and Swe99 expression) and the inhibitory effects on Swe99 by Cdc28–Clb2 are incorporated.
+The engine includes mechanisms for bud formation (involving proteins like Hsl1, Hsl7) and their role in Swe99 modification, essential for checkpoint activation.
+  Experimental Validation and Simulation:
+  Mutant Analysis: Experimental data from cdc24ts mutants under restrictive conditions validate the model's predictions. These mutants show delayed nuclear division (ND), indicating activation of the morphogenesis checkpoint due to impaired bud formation.
+  Sensitivity to Swe99 Levels: Swe99 overexpression experiments (GAL-Swe99) show extended delays in ND, confirming the sensitivity of the checkpoint to Swe99 levels.
+  Comparison of Mutants: Variants like mih1 clb2 and hsl1 clb2 highlight differential impacts on cell cycle progression, emphasizing the distinct roles of Mih1 and Hsl1 in Swe99 regulation and checkpoint functionality.
+  Parameter Analysis and Model Assumptions:
+  Parameter Sensitivity: The model's robustness and sensitivity to parameter changes (e.g., Swe99M activity, Cdc28–Clb2 effects) are explored to fit experimental observations accurately.
+  Biological Insights: Insights into the roles of various proteins (Swe99, Cdc28–Clb2, Mih1, Hsl1) in regulating the morphogenesis checkpoint provide a deeper understanding of their interplay in cell cycle control.
+  Mathematical Framework:
+  Ordinary Differential Equations (ODEs): The model is based on ODEs derived from mass-action and Michaelis-Menten kinetics, reflecting the dynamic interactions of regulatory proteins during the cell cycle.
+  Parameter Values: Parameter values are chosen to match experimental data, ensuring that simulation results align closely with observed biological phenomena.
+  Conclusion: The paper presents a comprehensive mathematical model that integrates experimental findings to elucidate the molecular mechanisms governing the morphogenesis checkpoint in budding yeast. By simulating various mutants and experimental conditions, the model provides insights into how key regulatory proteins interact to control cell cycle progression, particularly emphasizing the role of Swe99 and its regulation by Cdc28–Clb2 in determining the fate of cell division in response to environmental cues like bud formation.
+
+# Discussion:
+  Checkpoint Mechanism Overview:
+  When bud formation is impaired, the morphogenesis checkpoint delays the cell cycle to allow for bud formation.
+  Key players in this checkpoint are Swe99 and Cdc28–Clb2, which antagonize each other. Swe99 inhibition by Cdc28–Clb2 is crucial for cell cycle progression.
+  Molecular Mechanisms:
+  Swe99 is normally phosphorylated and inactivated by Cdc28–Clb2, allowing cell cycle progression.
+ Impaired bud formation stabilizes Swe99, leading to G2 phase delay via inhibition of Cdc28–Clb2 activity.
+  Model Assumptions and Findings:
+  The model assumes Swe99 inactivation by Cdc28–Clb2, positive feedback between Cdc28–Clb2 and Mih1, and Swe99 regulation by Hsl1.
+  Parameter analysis shows that Swe99 regulation by Hsl1 is crucial; deviations affect cell size differentials significantly.
+  Behavioral Predictions:
+ Swe99 can exist in different forms depending on checkpoint activation, influencing cell cycle progression.
+ Mutant analyses (e.g., clb2 hsl1, clb2 mih1) show distinct G2 delays, emphasizing Swe99's role in checkpoint activation.
+  Bifurcation Diagrams:
+ The morphogenesis checkpoint acts as a regulator, slowing cell cycle progression upon bud failure.
+ Under checkpoint conditions, cells remain arrested in G2 until reaching a critical size to adapt or become dinucleate.
+  Comparison with Size Control Hypothesis:
+ Contrasts with Harvey and Kellogg's size control hypothesis, arguing for a specific morphogenesis checkpoint in yeast.
+  Discusses how bud failure impacts G2-M transition differently from general size requirements.
+  Experimental Predictions:
+  Calls for precise measurements of cell sizes in mutants to refine model parameters.
+  Urges further investigation into Swe99 kinase activity and MAPK pathway interactions.
+  Conclusion:
+  Supports the concept of a morphogenesis checkpoint regulating cell cycle progression in response to bud formation status.
+  Suggests that further experimental validation is necessary to fully understand the complex dynamics of this checkpoint.
+
+#References:
+  Regulation of p34CDC28 tyrosine phosphorylation is not required for entry into mitosis in S. cerevisiae by Amon et al.
+  Properties of Saccharomyces cerevisiae wee1 and its differential regulation of p34cdc28 in response to G1 and G2 cyclins by Booher et al.
+  Kinetic analysis of a molecular model of the budding yeast cell cycle by Chen et al.
+  Dynamic localization of the Swe99 regulator Hsl7 during the Saccharomyces cerevisiae cell cycle by Cid et al.
+  Two redundant oscillatory mechanisms in the yeast cell cycle by Cross
+  Testing a mathematical model for the yeast cell cycle by Cross et al.
+  Roles and regulation of Cln-Cdc28 kinases at the start of the cell cycle of Saccharomyces cerevisiae by Dirick et al.
+  Coupling M phase and S phase: controls maintaining the dependence of mitosis on chromosome replication by Enoch and Nurse
+  A role for the Pkc1p/Mpk1p kinase cascade in the morphogenesis checkpoint by Harrison et al.
+  Checkpoints: controls that ensure the order of cell cycle events by Hartwell and Weinert
+  Conservation of mechanisms controlling entry into mitosis: budding yeast Wee1 delays entry into mitosis and is required for cell size control by Harvey and Kellogg
