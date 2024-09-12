@@ -78,13 +78,14 @@ for i in range(0,len(summarysplit)-1):
                                                                                   "methods, results, and discussion "
                                                                                   "section. don't leave anything out! "
                                                                                   "dont include more than one new "
+                                                                             
                                                                                   "line after each section's score!"
                                                                                    "the relevant section of the paper is as follows" + papersections[i] + ". "  + evalcriteria[i]})
 response = ollama.chat(
     model='llama3.1',
     messages=kmessages,
     stream=False,
-    options={"temperature" : 0.2}
+    options={"temperature" : 0.0, "seed" : 42}
 )
 
 raw = response['message']['content']
