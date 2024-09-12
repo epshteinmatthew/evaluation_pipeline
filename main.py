@@ -84,7 +84,7 @@ response = ollama.chat(
     model='llama3.1',
     messages=kmessages,
     stream=False,
-    options={"temperature" : 0.1}
+    options={"temperature" : 0.2}
 )
 
 raw = response['message']['content']
@@ -98,6 +98,26 @@ formatted = "{" + response['message']['content'].replace("\n", ",") + "}"
 responseJSON = json.loads(formatted)
 
 
+def adjustScore(oscore, summarysection, papersection):
+    missing = 0
+    translator = str.maketrans('', '', r"""!"#$%&'()*+,./:;<=>?@[\]^_`{|}~""")
+    words = papersection.translate(translator).split(' ')
+    # now how do I generate a score?
+    maxes = []
+    while len(maxes) < 5:
+        mostUsed = max(set(words), key=words.count)
+        words = [i for i in words if i != mostUsed]
+        if mostUsed in ["the", "by", "of", "and", "in", "with", "to", "from", "for", "is", "an", ''] or (
+                len(mostUsed) < 5 and mostUsed.isalpha()):
+            continue
+        maxes.append(mostUsed)
+    for item in maxes:
+        if item not in summarysection:
+            print(item)
+            missing += papersection.count(item)
+    return oscore - (missing / 5)
+
+
 def hallucinated():
     hallucinated = 0
 
@@ -108,17 +128,15 @@ def hallucinated():
     # basic search for authors and title
     for part in authors:
         hallucwordscore = 0
-        for word in part.split(" "):
-            if word not in author:
-                hallucwordscore += 1
-        if hallucwordscore > len(part.split(" ")) / 2:
+        if part not in author:
             hallucinated+=1
     halluctitlescore = 0
     for word in title.split(" "):
         if word not in title1:
             halluctitlescore += 1
-    if halluctitlescore > len(title.split(" ")) / 2:
-        hallucinated += 1
+    if halluctitlescore < len(title.split(" ")) / 2:
+        hallucinated += halluctitlescore
+    print(hallucinated)
 
     #specific words
     results = summary
@@ -143,11 +161,11 @@ def hallucinated():
 
 
 def eval(abstract_score, background_score, methods_score, results_score, discussion_score):
-    score = (abstract_score*1.25 + background_score + methods_score*1.5 + results_score*2 + discussion_score*2 - (
+    score = (adjustScore(abstract_score*1.25, summarysplit[0], organized_sections['summary']) + adjustScore(background_score, summarysplit[1],organized_sections['background_significance']) + adjustScore(methods_score*1.5, summarysplit[2],organized_sections['methods']) + adjustScore(results_score*2, summarysplit[3], organized_sections['results']) + adjustScore(discussion_score*2, summarysplit[4],organized_sections['discussion']) - (
                 hallucinated() / 5)) * (10/77.5)
     print(score)
     return score > 7.5
 
 
-print(eval(responseJSON["Overview"], responseJSON["Background and Significance"], responseJSON["Methods"],
+print(eval(responseJSON["Summary"], responseJSON["Background and Significance"], responseJSON["Methods"],
            responseJSON["Results"], responseJSON["Discussion"]))

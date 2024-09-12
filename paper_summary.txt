@@ -13,14 +13,14 @@ Rosario Sarabia, Department of Neurosurgery, Río Hortega University Hospital
 # Summary:
 The Río Hortega University Hospital Glioblastoma Dataset (RHUH-GBM) is a collection of multiparametric MRI images, volumetric assessments, molecular data, and survival details for glioblastoma patients who underwent total or near-total enhancing tumor resection. The dataset aims to address the limitations of public MRI repositories by providing expert-corrected segmentations of tumor subregions and follow-up studies, enabling researchers to study recurrence patterns and develop new diagnostic and prognostic models. By publicly disseminating this dataset, the scientific community can scrutinize recurrence patterns in patients who have experienced gross total or near-total resection, facilitating the development of novel registration and segmentation algorithms tailored for postoperative and follow-up MRI scans.
 
-# Background and Significance
+# Background and Significance:
 Context: Glioblastoma Research Challenge
 Glioblastoma, the most prevalent primary brain tumor, poses a significant challenge in clinical management due to its dismal prognosis despite extensive research efforts.
-## Research Problem: Diagnostic Accuracy and Prognostic Models
+Research Problem - Diagnostic Accuracy and Prognostic Models
 Despite advances in medical image processing techniques and artificial intelligence-based algorithms, existing public MRI repositories have limitations, including preoperative studies with diverse resection categories, limited expert annotations, and structural sequences of MRI modalities. These constraints hinder the development of accurate diagnostic models for glioblastoma.
 Key Literature: Public MRI Repositories
 Public data sources, such as The Cancer Imaging Archive (TCIA) and the Multimodal Brain Tumor Segmentation (BraTS) challenge dataset, have supplied valuable research data in the field. However, these resources primarily focus on preoperative studies with limited annotations and structural sequences.
-Importance of the Study: Contribution to Glioblastoma Research
+Importance of the Study - Contribution to Glioblastoma Research
 The proposed "Río Hortega University Hospital Glioblastoma Dataset (RHUH-GBM)" aims to address the research problem by providing a novel dataset with multiparametric MRI images captured at three critical junctures: preoperative, early postoperative, and follow-up examinations. This dataset complements existing public resources and enables researchers to focus on recurrence patterns in patients who have experienced gross total or near-total resection. The study's significance lies in its potential to facilitate the development of novel registration and segmentation algorithms tailored for postoperative and follow-up MRI scans, ultimately contributing to improved diagnostic accuracy and prognostic models for glioblastoma.
 
 # Methods:
