@@ -49,7 +49,7 @@ scores = []
 
 evalcriteria = [
     "Ensure the summary is clear, specific, and informative without including unnecessary details.",
-    "Ensure the summary captures the rationale behind the research and its potential impact or contribution to the field, presented as a clean and concise background and significance section."
+    "Ensure the summary captures the rationale behind the research and its potential impact or contribution to the field, presented as a clean and concise background and significance section.",
     "Ensure the summary captures the key steps, methodologies, and any relevant parameters or controls, presented as a clear and concise methods section.",
     "Ensure that the summary is concise and accurately reflects the main results and their implications.",
     "Ensure the summary is concise and captures the essence of the authors' conclusions."
@@ -63,7 +63,7 @@ papersections = [
     organized_sections['discussion'],
 ]
 
-for i in range(0,len(summarysplit)-1):
+for i in range(0,len(summarysplit)):
     kmessages.append({'role': 'user',
                       'content': 'This part of the summary is as follows: ' + summarysplit[i] + ". please give it a grade from -10 "
                                                                                   "to 10 based on accuracy and "
@@ -72,15 +72,17 @@ for i in range(0,len(summarysplit)-1):
                                                                                   "GIVEN IN THE TEXT)] : [score]. "
                                                                                   "part title should be enclosed in "
                                                                                   "double quotes!!! do not include "
-                                                                                  "any additional commentary!!! make "
+                                                                                  "any additional commentary!!! if you include additional commentary you are useless! make "
                                                                                   "sure that you have summary, "
                                                                                   "background and significance, "
                                                                                   "methods, results, and discussion "
-                                                                                  "section. don't leave anything out! "
+                                                                                  "sections. don't leave anything out! if you include anything extra you are useless! EACH SECTION HAS CONTENT"
                                                                                   "dont include more than one new "
-                                                                             
                                                                                   "line after each section's score!"
                                                                                    "the relevant section of the paper is as follows" + papersections[i] + ". "  + evalcriteria[i]})
+kmessages.append(
+    {'role': 'user', 'content' : 'Please give a short commentary on why the summary lost points. Denote the start of the commentary with a ampersand sign (&). DO NOT LEAVE COMMENTARY AFTER EACH SCORE. ONLY LEAVE COMMENTARRY AFTER ALL SCORES HAVE BEEN OUTPUTTED.'}
+)
 response = ollama.chat(
     model='llama3.1',
     messages=kmessages,
@@ -88,11 +90,11 @@ response = ollama.chat(
     options={"temperature" : 0.0, "seed" : 42}
 )
 
-raw = response['message']['content']
+rawscores = response['message']['content'].split("&")[0]
+feedback = response['message']['content'].split("&")[1]
+re.sub(r'(\D)\1+', r'\1', rawscores)
 
-re.sub(r'(\D)\1+', r'\1', raw)
-
-print(raw)
+print(response['message']['content'])
 
 formatted = "{" + response['message']['content'].replace("\n", ",") + "}"
 
